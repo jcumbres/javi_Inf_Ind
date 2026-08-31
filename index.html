@@ -4,17 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Portfolio profesional de Javi — Ingeniería Informática, Automatización Industrial, PLC, SCADA e IIoT.">
-  <title>Javi | Ingeniería Informática · Automatización · IIoT</title>
+  <title>SCADA | Ingeniería Informática · Automatización · IIoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="nav">
-    <a class="brand" href="#top">JAVI<span>.</span></a>
+    <a class="brand" href="#top">JAVIER CUMBRES TENA<span>.</span></a>
     <nav>
       <a href="#sobre-mi">Sobre mí</a>
       <a href="#experiencia">Experiencia</a>
       <a href="#stack">Stack</a>
       <a href="#proyectos">Proyectos</a>
+      <a href="#vista-previa">Vista previa</a>
       <a href="#contacto">Contacto</a>
     </nav>
     <button class="nav-toggle" aria-label="Abrir menú">☰</button>
@@ -39,7 +42,35 @@
           <div><strong>OT + IT</strong><span>perfil híbrido</span></div>
         </div>
       </div>
+
       <div class="hero-visual reveal">
+        <div class="pipeline">
+          <p class="pipeline-caption">Datos seguros y confiables</p>
+          <svg viewBox="0 0 560 150" class="pipeline-svg" role="img" aria-label="Diagrama animado: un sensor envía datos a un PLC, que los envía por MQTT a un sistema SCADA">
+            <path class="pipe" d="M60,90 C130,90 130,90 190,90"></path>
+            <path class="pipe" d="M260,90 C330,90 330,90 390,90"></path>
+            <path class="pipe pipe--cmd" d="M390,115 C330,115 330,115 260,115"></path>
+          </svg>
+          <div class="node" style="--nx:60px; --ny:90px;">
+            <div class="node-box"><span>◉</span></div>
+            <p>SENSOR</p>
+          </div>
+          <div class="node" style="--nx:225px; --ny:90px;">
+            <div class="node-box"><span>▦</span></div>
+            <p>PLC</p>
+          </div>
+          <div class="node" style="--nx:420px; --ny:90px;">
+            <div class="node-box node-box--active"><span>▣</span></div>
+            <p>SCADA</p>
+          </div>
+          <div class="packet" style="offset-path: path('M60,90 C130,90 130,90 190,90 C330,90 330,90 390,90');"></div>
+          <div class="packet" style="offset-path: path('M60,90 C130,90 130,90 190,90 C330,90 330,90 390,90'); animation-delay:-1.3s;"></div>
+          <div class="packet" style="offset-path: path('M60,90 C130,90 130,90 190,90 C330,90 330,90 390,90'); animation-delay:-2.6s;"></div>
+          <div class="packet packet--cmd" style="offset-path: path('M390,115 C330,115 330,115 260,115 C190,115 190,115 60,115');"></div>
+          <p class="proto-label" style="left:125px;">4-20mA</p>
+          <p class="proto-label" style="left:325px;">MQTT</p>
+        </div>
+
         <div class="terminal">
           <div class="terminal-top"><span></span><span></span><span></span><b>industrial-stack</b></div>
           <pre><code><span class="muted">$</span> system.status()
@@ -50,6 +81,7 @@ MQTT         <span class="ok">● CONNECTED</span>
 OPC UA       <span class="ok">● CONNECTED</span>
 PostgreSQL   <span class="ok">● READY</span>
 Docker       <span class="ok">● RUNNING</span>
+Temp. línea 3   <b id="live-value" class="ok">24.6 °C</b>
 
 <span class="muted">$</span> solve(problem)
 <span class="accent">→ diagnose → isolate → fix → validate</span></code></pre>
@@ -199,25 +231,103 @@ Docker       <span class="ok">● RUNNING</span>
       </div>
     </section>
 
+    <!-- ===================== VISTA PREVIA: SCADA + HISTÓRICO ===================== -->
+    <section id="vista-previa" class="section preview">
+      <div class="section-heading reveal">
+        <p class="eyebrow">05 / VISTA PREVIA</p>
+        <h2>Así se vería en una pantalla de control real.</h2>
+      </div>
+
+      <div class="preview-grid reveal">
+
+        <div class="terminal">
+          <div class="terminal-top"><span></span><span></span><span></span><b>scada-proceso</b></div>
+          <div class="scada-alarm"><span class="scada-alarm-dot"></span>1 aviso activo — nivel bajo en tanque 2</div>
+          <svg viewBox="0 0 400 220" class="scada-svg" role="img" aria-label="Mímica de proceso con dos tanques, una bomba y una válvula, con nivel de líquido y flujo animados">
+            <path class="scada-pipe" d="M70,170 L70,135 L150,135"></path>
+            <path class="scada-pipe" d="M190,135 L250,135"></path>
+            <path class="scada-pipe scada-pipe--flow" d="M250,135 L320,135 L320,170"></path>
+            <path class="scada-pipe scada-pipe--flow" d="M70,135 L70,108"></path>
+
+            <rect x="40" y="52" width="60" height="118" rx="6" class="tank-shell"></rect>
+            <rect x="43" y="92" width="54" height="76" class="tank-fluid"></rect>
+            <text x="70" y="40" class="scada-label" text-anchor="middle">TANQUE 1</text>
+            <text x="70" y="188" class="scada-readout" text-anchor="middle">NIVEL 64%</text>
+
+            <g class="pump" transform="translate(170,135)">
+              <circle r="19" class="pump-body"></circle>
+              <g class="pump-blades"><line x1="-12" y1="0" x2="12" y2="0"></line><line x1="0" y1="-12" x2="0" y2="12"></line></g>
+            </g>
+            <text x="170" y="168" class="scada-readout" text-anchor="middle">CAUDAL 128 m³/h</text>
+
+            <rect x="240" y="125" width="20" height="20" class="valve"></rect>
+            <text x="250" y="118" class="scada-label" text-anchor="middle">V-102</text>
+
+            <rect x="290" y="52" width="60" height="118" rx="6" class="tank-shell tank-shell--warn"></rect>
+            <rect x="293" y="136" width="54" height="32" class="tank-fluid tank-fluid--warn"></rect>
+            <text x="320" y="40" class="scada-label" text-anchor="middle">TANQUE 2</text>
+            <text x="320" y="188" class="scada-readout scada-readout--warn" text-anchor="middle">NIVEL 21%</text>
+          </svg>
+        </div>
+
+        <div class="terminal">
+          <div class="terminal-top"><span></span><span></span><span></span><b>trend-historian</b></div>
+          <svg viewBox="0 0 400 190" class="trend-svg" role="img" aria-label="Gráfico de tendencias con temperatura, presión y caudal de los últimos 60 minutos">
+            <g class="trend-grid">
+              <line x1="18" y1="8" x2="388" y2="8"></line>
+              <line x1="18" y1="45" x2="388" y2="45"></line>
+              <line x1="18" y1="82" x2="388" y2="82"></line>
+              <line x1="18" y1="119" x2="388" y2="119"></line>
+              <line x1="18" y1="156" x2="388" y2="156"></line>
+              <line x1="18" y1="8" x2="18" y2="156"></line>
+              <line x1="92" y1="8" x2="92" y2="156"></line>
+              <line x1="166" y1="8" x2="166" y2="156"></line>
+              <line x1="240" y1="8" x2="240" y2="156"></line>
+              <line x1="314" y1="8" x2="314" y2="156"></line>
+              <line x1="388" y1="8" x2="388" y2="156"></line>
+            </g>
+            <text x="18" y="170" class="trend-tick">-60min</text>
+            <text x="314" y="170" class="trend-tick">-6min</text>
+            <text x="378" y="170" class="trend-tick" text-anchor="end">ahora</text>
+
+            <polyline class="trend-line trend-line--temp" points="18,84 46,82 75,85 103,81 132,83 160,87 189,85 217,82 246,80 274,83 303,86 331,84 360,82 388,81"></polyline>
+            <polyline class="trend-line trend-line--pres" points="18,118 46,116 75,120 103,113 132,108 160,106 189,110 217,114 246,118 274,121 303,117 331,112 360,109 388,107"></polyline>
+            <polyline class="trend-line trend-line--caudal" points="18,52 46,57 75,50 103,62 132,67 160,60 189,54 217,58 246,64 274,70 303,66 331,61 360,56 388,52"></polyline>
+
+            <circle cx="388" cy="81" r="3.2" class="trend-dot trend-dot--temp"></circle>
+            <circle cx="388" cy="107" r="3.2" class="trend-dot trend-dot--pres"></circle>
+            <circle cx="388" cy="52" r="3.2" class="trend-dot trend-dot--caudal"></circle>
+            <line x1="18" y1="8" x2="18" y2="156" class="trend-scanline"></line>
+          </svg>
+          <ul class="trend-legend">
+            <li><span class="swatch swatch--temp"></span>Temperatura <b>25.1 °C</b></li>
+            <li><span class="swatch swatch--pres"></span>Presión <b>3.2 bar</b></li>
+            <li><span class="swatch swatch--caudal"></span>Caudal <b>128 m³/h</b></li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
     <section class="section architecture-section">
       <div class="section-heading reveal">
-        <p class="eyebrow">05 / ARQUITECTURA</p>
+        <p class="eyebrow">06 / ARQUITECTURA</p>
         <h2>OT + IT en una sola arquitectura.</h2>
       </div>
       <div class="big-architecture reveal">
         <div class="layer"><small>CAMPO</small><strong>PLC · SENSORES · MÁQUINAS</strong></div>
-        <div class="arrow">↓</div>
+        <div class="arrow"><span class="arrow-glyph">↓</span><span class="arrow-packet arrow-packet--down"></span><span class="arrow-packet arrow-packet--up"></span></div>
         <div class="layer"><small>CONTROL</small><strong>HMI · SCADA · OPC UA</strong></div>
-        <div class="arrow">↓</div>
+        <div class="arrow"><span class="arrow-glyph">↓</span><span class="arrow-packet arrow-packet--down"></span><span class="arrow-packet arrow-packet--up"></span></div>
         <div class="layer"><small>EDGE / IIoT</small><strong>MQTT · LINUX · DOCKER</strong></div>
-        <div class="arrow">↓</div>
+        <div class="arrow"><span class="arrow-glyph">↓</span><span class="arrow-packet arrow-packet--down"></span><span class="arrow-packet arrow-packet--up"></span></div>
         <div class="layer"><small>SOFTWARE / DATOS</small><strong>.NET · PYTHON · POSTGRESQL · APIs</strong></div>
       </div>
     </section>
 
     <section class="section method">
       <div class="section-heading reveal">
-        <p class="eyebrow">06 / FORMA DE TRABAJAR</p>
+        <p class="eyebrow">07 / FORMA DE TRABAJAR</p>
         <h2>Problema → diagnóstico → solución → validación.</h2>
       </div>
       <div class="method-grid">
@@ -230,7 +340,7 @@ Docker       <span class="ok">● RUNNING</span>
 
     <section class="section education">
       <div class="section-heading reveal">
-        <p class="eyebrow">07 / FORMACIÓN</p>
+        <p class="eyebrow">08 / FORMACIÓN</p>
         <h2>Dos mundos que se complementan.</h2>
       </div>
       <div class="education-grid">
@@ -241,22 +351,21 @@ Docker       <span class="ok">● RUNNING</span>
 
     <section id="contacto" class="section contact">
       <div class="contact-box reveal">
-        <p class="eyebrow">08 / CONTACTO</p>
+        <p class="eyebrow">09 / CONTACTO</p>
         <h2>¿Tienes un problema industrial que conectar con software?</h2>
         <p>Estoy interesado en oportunidades de automatización industrial, PLC/SCADA, IIoT, OT/IT, integración de sistemas y software industrial.</p>
-        <p class="availability">📍 Madrid · Andalucía · Castilla-La Mancha</p>
+        <p class="availability">📍 Madrid · Extremadura · Andalucía · Castilla-La Mancha</p>
         <div class="hero-actions">
           <a class="btn primary" href="mailto:jct11997@gmail.com">Escribirme por email</a>
           <a class="btn ghost" href="https://github.com/jcumbres" target="_blank" rel="noopener">GitHub</a>
           <a class="btn ghost" href="https://www.linkedin.com/in/javier-ct-254349158/" target="_blank" rel="noopener">LinkedIn</a>
         </div>
-        <small>Antes de publicar, sustituye el email y los enlaces de GitHub/LinkedIn por los tuyos.</small>
       </div>
     </section>
   </main>
 
   <footer>
-    <span>JAVI.</span>
+    <span>JAVIER CUMBRES TENA.</span>
     <span>Ingeniería Informática · Automatización · IIoT</span>
   </footer>
   <script src="script.js"></script>

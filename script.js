@@ -1,3 +1,5 @@
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -7,6 +9,9 @@ const observer = new IntersectionObserver(entries => {
   });
 }, {threshold: .12});
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+if (prefersReducedMotion) {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+}
 
 const toggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.nav nav');
@@ -19,3 +24,14 @@ toggle?.addEventListener('click', () => {
     nav.style.flexDirection='column'; nav.style.borderBottom='1px solid #273038';
   }
 });
+
+// Lectura de sensor simulada en la ventana "industrial-stack"
+const liveValue = document.getElementById('live-value');
+if (liveValue && !prefersReducedMotion) {
+  let base = 24.6;
+  setInterval(() => {
+    const drift = (Math.random() - 0.5) * 0.6;
+    base = Math.max(21, Math.min(28, base + drift));
+    liveValue.textContent = `${base.toFixed(1)} °C`;
+  }, 1800);
+}
